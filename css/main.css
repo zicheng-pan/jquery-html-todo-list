@@ -2,10 +2,36 @@
     background: rgba(0,0,0,0.1);
 }
 body{
-    /*background:#666;*/
+    background:#00334b;
+    color: #fff;
 }
 
 .container{
     max-width:900px;
     margin: 0px auto;
 }
+
+.container h1{
+    text-align: center;
+}
+
+.tasklist{
+    margin:10px 0px;
+}
+
+.taskitem{
+
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 2px 3px rgba(0,0,0,.1);
+    color: #333;
+    margin-bottom: 2px;
+    cursor: pointer;
+    transition: background,.1s;
+    border-radius: 3px;
+}
+
+.taskitem:hover{
+    background:#ccc;
+}
+
