@@ -1,5 +1,10 @@
 * {
-    background: rgba(0,0,0,0.1);
+    /*background: rgba(0,0,0,0.1);*/
+    -webkit-transition: background .1s;
+    -moz-transition: background  .1s;
+    -ms-transition: background  .1s;
+    -o-transition: background  .1s;
+    transition: background  .1s;
 }
 body{
     background:#00334b;
@@ -9,6 +14,7 @@ body{
 .container{
     max-width:900px;
     margin: 0px auto;
+    position:relative;
 }
 
 .container h1{
@@ -17,21 +23,98 @@ body{
 
 .tasklist{
     margin:10px 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input,.taskitem,button,.task_detail_mask,textarea{
+    padding: 10px;
+    border-radius: 3px;
+    /*margin: 5px 0px ;*/
+}
+
+button{
+    border:0px;
+    color:#333;
+    display: inline-block;
+    cursor: pointer;
+}
+/*add task 向左浮动使它和button在一行*/
+.add_task input[type="text"]{
+    float:left;
+    width: 84%;
+    margin-right: 1%;
+}
+
+.add_task [type="submit"]{
+    width:15%;
+    background: #46b1e4;
+    box-shadow: 0 2px 3px rgba(0,0,0,.1);
+}
+
+.add_task [type="submit"]:hover{
+    background:#5fb9e4;
 }
 
 .taskitem{
-
-    padding: 10px;
     background: #fff;
     box-shadow: 0 2px 3px rgba(0,0,0,.1);
     color: #333;
     margin-bottom: 2px;
     cursor: pointer;
-    transition: background,.1s;
-    border-radius: 3px;
+
 }
 
 .taskitem:hover{
     background:#ccc;
 }
+textarea,
+input[type="text"],input[type="date"]{
+    display: block;
+    width:100%;
+    border: 0;
+    background: #eee;
+    outline: 0px;
+}
+textarea:hover, textarea:focus,
+input[type="text"]:hover,input[type="date"]:hover,
+input[type="text"]:focus,input[type="date"]:focus{
+    background:#fff;
+    /*box-shadow: inset 0 1px 1px rgba(0,0,0,.3)*/
+    box-shadow:0px 1px 5px #333333;
+}
+.task_detail_mask,.task_detail
+{
+    display: none;
+}
+.task_detail_mask{
+    background: rgba(30,30,30,0.6);
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+}
 
+.task_detail{
+    cursor: pointer;
+    color:#666;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    padding: 10px;
+    bottom: 0px;
+    right:0px;
+}
+.task_detail > *{
+    margin-bottom: 10px;
+}
+textarea{
+    min-height: 100px;
+    border: 0;
+}
+.task_detail .content{
+    text-align: center;
+}
