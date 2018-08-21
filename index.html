@@ -1,0 +1,41 @@
+<html>
+<head>
+    <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+<div class="container">
+    <!--add task-->
+    <div class="add_task">
+        <input type="text">
+        <button>submit</button>
+    </div>
+    <!--add task end-->
+
+    <!--task list-->
+    <!--div.taskitem{item content $}*10-->
+    <div class="taskitem">
+        <span><input type="checkbox"></span>
+        <span class="task_content">item content 1</span>
+        <span>delete</span>
+        <span>detail</span>
+    </div>
+
+    <div class="task_detail">
+        <div class="content"></div>
+        <div class="desc"></div>
+        <div class="remid">
+            <input type="date">
+            <button>submit</button>
+        </div>
+    </div>
+
+    <!--task list end-->
+</div>
+
+
+</body>
+<script src="./lib/jquery-3.3.1.min.js"></script>
+<script src="./js/main.js"></script>
+</html>
