@@ -118,3 +118,14 @@ textarea{
 .task_detail .content{
     text-align: center;
 }
+.fr{
+    float:right;
+}
+.action{
+    margin: 3px;
+    color: #888;
+    font-size: 90%;
+}
+.action:hover{
+    color:red
+}

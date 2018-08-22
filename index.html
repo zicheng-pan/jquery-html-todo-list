@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/main.css">
 </head>
@@ -7,35 +8,16 @@
 <div class="container">
     <h1>TODO list</h1>
     <!--add task-->
-    <div class="add_task">
-        <input type="text"  placeholder="e.g.I wanna do ....">
+    <form class="add_task">
+        <input name="content" type="text"  placeholder="e.g.I wanna do ....">
         <button type="submit">submit</button>
-    </div>
+    </form>
     <!--add task end-->
 
     <!--task list-->
     <!--div.taskitem{item content $}*10-->
     <div class="tasklist">
-        <div class="taskitem">
-            <span><input type="checkbox"></span>
-            <span class="task_content">item content 1</span>
-            <span>delete</span>
-            <span>detail</span>
-        </div>
 
-        <div class="taskitem">
-            <span><input type="checkbox"></span>
-            <span class="task_content">item content 1</span>
-            <span>delete</span>
-            <span>detail</span>
-        </div>
-
-        <div class="taskitem">
-            <span><input type="checkbox"></span>
-            <span class="task_content">item content 1</span>
-            <span>delete</span>
-            <span>detail</span>
-        </div>
     </div>
     <div class="task_detail_mask"></div>
     <div class="task_detail">
@@ -53,5 +35,6 @@
 
 </body>
 <script src="./lib/jquery-3.3.1.min.js"></script>
+<script src="./lib/store.min.js"></script>
 <script src="./js/main.js"></script>
 </html>
