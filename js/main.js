@@ -35,6 +35,8 @@
     }
 
     function renderTpl(data,index){
+        if(!data || !index)
+            return;
         var task_item_tpl =
             '<div class="taskitem" data-index="'+ index +'">' +
             '<span><input type="checkbox" style="margin-right:10px;"></span>' +
@@ -63,17 +65,23 @@
         $delete_index.on("click",function(){
             var $this = $(this);
             var index = $this.parent().parent().data('index');
-            deleteTaskItem(index);
+            // 判断是否执行 delete
+            var temp = confirm("if delete this task?");
+            temp ? deleteTaskItem(index) : null;
+            // if(deleteTaskItem(index))
+            //     alert('delete successfully');
         })
 
     }
 
     //delete task item
     function deleteTaskItem(index){
-        if( !index || !task_list[index]) return ;
+        console.log(task_list[index]);
+        if( index === undefined || !task_list[index]) return ;
         delete task_list[index];
+        store.set('task_list',task_list);
         renderTaskList();
-
+        return true;
     }
 
 })();
