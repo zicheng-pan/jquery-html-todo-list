@@ -112,7 +112,7 @@ input[type="text"]:focus,input[type="date"]:focus{
     margin-bottom: 10px;
 }
 textarea{
-    min-height: 100px;
+    min-height: 80px;
     border: 0;
 }
 .task_detail .content{
@@ -128,4 +128,7 @@ textarea{
 }
 .action:hover{
     color:red
+}
+.remind >*{
+    margin-top:5px;
 }
