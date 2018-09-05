@@ -9,6 +9,8 @@
         ,$task_detail_div=$('.task_detail')
         ,$task_detail_content=$('#task_detail_content')
         ,task_list = []
+        ,$task_content=$('.content')
+        ,$task_content_input=null
     ;
 
     init();
@@ -72,11 +74,12 @@
         var task_desc = task.desc === undefined ? "" : task.desc;
         var task_detail_tpl=
             '<form>' +
-            '<div class="content">'+task.content+'</div>' +
-            '<textarea name="task_desc" class="desc">'+ task_desc +'</textarea>' +
+            '<div class="content task_detail_item">'+task.content+'</div>' +
+            '<div><input class="task_detail_item" type="text" name="content" value="'+ task.content +'" style="display: none;"></div>' +
+            '<textarea name="task_desc" class="desc task_detail_item">'+ task_desc +'</textarea>' +
             '<div class="remind">' +
-            '<input name="task_date" type="date" value="'+ task.date +'">' +
-            '<button type="submit">submit</button>' +
+            '<input class="task_detail_item" name="task_date" type="date" value="'+ task.date +'">' +
+            '<button class="task_detail_item" type="submit">submit</button>' +
             '</div>' +
             '</form>'
             ;
@@ -87,13 +90,20 @@
             e.preventDefault();
             var task_desc = $task_detail_form.find("[name=task_desc]").val();
             var task_date = $task_detail_form.find("[name=task_date]").val();
+            var content = $task_detail_form.find("[name=content]").val();
             // console.log(task_desc,task_date);
             task.desc = task_desc;
             task.date = task_date;
             task_list[index] = task;
+            task.content = content;
             store.set('task_list',task_list);
             renderTaskList();
             hideTaskDiv();
+        });
+        $task_detail_form.find('.content').on('dblclick',function(){
+            $task_content_input = $task_detail_form.find('[name=content]')
+            $task_content_input.show();
+            $task_detail_form.find('.content').hide();
         });
 
 
@@ -105,7 +115,7 @@
         $tasklist.html('');
         for ( var x=0; x<task_list.length; x++){
             var $task_item = renderTpl(task_list[x],x);
-            $tasklist.append($task_item);
+            $tasklist.prepend($task_item);
         }
         // action 和 delete 是同级
         $delete_index = $('.action.delete');
