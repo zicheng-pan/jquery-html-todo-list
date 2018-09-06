@@ -50,8 +50,9 @@
     }
 
     function renderTpl(data,index){
-        if(!data || !index)
+        if((index != 0) && (!data || !index))
             return;
+
         var task_item_tpl =
             '<div class="taskitem" data-index="'+ index +'">' +
             '<span><input type="checkbox" style="margin-right:10px;"></span>' +
@@ -111,8 +112,8 @@
 
     function renderTaskList(){
 
-        var $tasklist =  $('.tasklist');
-        $tasklist.html('');
+        var $tasklist =  $('.tasklist') || [];
+        $tasklist.html(null);
         for ( var x=0; x<task_list.length; x++){
             var $task_item = renderTpl(task_list[x],x);
             $tasklist.prepend($task_item);
