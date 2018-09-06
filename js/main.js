@@ -11,6 +11,7 @@
         ,task_list = []
         ,$task_content=$('.content')
         ,$task_content_input=null
+        ,$task_checkbox=null
     ;
 
     init();
@@ -52,10 +53,11 @@
     function renderTpl(data,index){
         if((index != 0) && (!data || !index))
             return;
-
+        var iscomplete = data.iscompleted == true ? "checked":"";
+        console.log(iscomplete);
         var task_item_tpl =
             '<div class="taskitem" data-index="'+ index +'">' +
-            '<span><input type="checkbox" style="margin-right:10px;"></span>' +
+            '<span><input type="checkbox" class="complete"' +iscomplete+ ' style="margin-right:10px;"></span>' +
             '<span class="task_content">'+data.content+'</span>' +
             '<span class="fr">'+
             '<span class="action delete">delete</span>' +
@@ -68,7 +70,6 @@
     }
 
     function renderTaskDetailTpl(index){
-        console.log('index',index);
 
         var task = task_list[index];
         // console.log('task.desc === undefined',task.desc === undefined);
@@ -84,7 +85,6 @@
             '</div>' +
             '</form>'
             ;
-        console.log('task_detail_tpl',task_detail_tpl);
         $task_detail_content.html(task_detail_tpl);
         var $task_detail_form = $task_detail_content.find('form');
         $task_detail_form.on('submit',function(e){
@@ -102,7 +102,7 @@
             hideTaskDiv();
         });
         $task_detail_form.find('.content').on('dblclick',function(){
-            $task_content_input = $task_detail_form.find('[name=content]')
+            $task_content_input = $task_detail_form.find('[name=content]');
             $task_content_input.show();
             $task_detail_form.find('.content').hide();
         });
@@ -110,17 +110,47 @@
 
     }
 
+    function updateTask(index,data){
+        if(!index && !task_list[index])
+            return;
+        task_list[index] = $.extend({},task_list[index],data);
+        store.set('task_list',task_list);
+        renderTaskList();
+    }
+
     function renderTaskList(){
 
         var $tasklist =  $('.tasklist') || [];
         $tasklist.html(null);
+        var completeTaskList = [];
         for ( var x=0; x<task_list.length; x++){
-            var $task_item = renderTpl(task_list[x],x);
+            var task_i = task_list[x];
+            if(task_i.iscompleted){
+                completeTaskList.push([task_i,x]);
+                continue;
+            }
+            var $task_item = renderTpl(task_i,x);
             $tasklist.prepend($task_item);
+        }
+        for (var j=0; j<completeTaskList.length;j++){
+            var $task_item = renderTpl(completeTaskList[j][0],completeTaskList[j][1]);
+            if($task_item){
+                $task_item.addClass('iscompleted');
+            }
+            $tasklist.append($task_item);
         }
         // action 和 delete 是同级
         $delete_index = $('.action.delete');
         // console.log('delete_index',$delete_index);
+        $tasklist.find('.taskitem').on('dblclick',function () {
+            // console.log('index',index);
+            // 设置content detail div的样式
+            var index = $(this).data('index');
+            renderTaskDetailTpl(index);
+            // 点击并且弹框
+            $task_detail_mask.show();
+            $task_detail_div.show();
+        });
         $delete_index.on("click",function(){
             var $this = $(this);
             var index = $this.parent().parent().data('index');
@@ -142,6 +172,18 @@
             // 点击并且弹框
             $task_detail_mask.show();
             $task_detail_div.show();
+        });
+
+        $task_checkbox = $(".taskitem .complete");
+        $task_checkbox.on('click',function () {
+            var $this = $(this);
+            var index = $this.parent().parent().data('index');
+            if($this.is(':checked')){
+                updateTask(index,{'iscompleted':true});
+            }
+            else{
+                updateTask(index,{'iscompleted':false});
+            }
         });
 
 

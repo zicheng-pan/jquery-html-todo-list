@@ -12,6 +12,7 @@ body{
 }
 
 .container{
+    width: 90%;
     max-width:900px;
     margin: 0px auto;
     position:relative;
@@ -43,14 +44,15 @@ button{
 /*add task 向左浮动使它和button在一行*/
 .add_task input[type="text"]{
     float:left;
-    width: 84%;
+    width: 80%;
     margin-right: 1%;
 }
 
 .add_task [type="submit"]{
-    width:15%;
+    width:19%;
     background: #46b1e4;
     box-shadow: 0 2px 3px rgba(0,0,0,.1);
+    text-align: center;
 }
 
 .add_task [type="submit"]:hover{
@@ -134,4 +136,21 @@ textarea{
 }
 .remind >*{
     margin-top:5px;
+}
+
+.taskitem.iscompleted{
+    /*background: #666;*/
+    color: #aaaaaa;
+    opacity: .5;
+}
+
+.taskitem.iscompleted:after{
+    content: ' ';
+    height: 1px;
+    background: #aaaaaa;
+    width: 89%;
+    position: relative;
+    top: -8px;
+    display: block;
+    margin: 0 auto;
 }
