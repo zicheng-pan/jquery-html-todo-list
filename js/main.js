@@ -54,7 +54,6 @@
         if((index != 0) && (!data || !index))
             return;
         var iscomplete = data.iscompleted == true ? "checked":"";
-        console.log(iscomplete);
         var task_item_tpl =
             '<div class="taskitem" data-index="'+ index +'">' +
             '<span><input type="checkbox" class="complete"' +iscomplete+ ' style="margin-right:10px;"></span>' +
@@ -125,15 +124,15 @@
         var completeTaskList = [];
         for ( var x=0; x<task_list.length; x++){
             var task_i = task_list[x];
-            if(task_i.iscompleted){
-                completeTaskList.push([task_i,x]);
+            if(task_i && task_i.iscompleted){
+                completeTaskList.push(x);
                 continue;
             }
             var $task_item = renderTpl(task_i,x);
             $tasklist.prepend($task_item);
         }
         for (var j=0; j<completeTaskList.length;j++){
-            var $task_item = renderTpl(completeTaskList[j][0],completeTaskList[j][1]);
+            var $task_item = renderTpl(task_list[completeTaskList[j]],completeTaskList[j]);
             if($task_item){
                 $task_item.addClass('iscompleted');
             }
