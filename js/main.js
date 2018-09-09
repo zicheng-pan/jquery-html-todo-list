@@ -11,6 +11,10 @@
         , $task_content = $('.content')
         , $task_content_input = null
         , $task_checkbox = null
+        , $msg = $('.msg')
+        , $msg_content = $msg.find('.msg-content')
+        , $msg_confirm = $msg.find('.confirmed')
+        , $alerter = $('.alerter')
     ;
 
     init();
@@ -34,10 +38,28 @@
     }
 
 
-    function notifiy(task, index) {
-        updateTask(index, {'notified': true});
-        alert(task.content);
+    function hide_msg() {
+        $msg.hide();
     }
+
+    function show_msg(msg) {
+        if (!msg) return;
+
+        $msg_content.html(msg);
+        $alerter.get(0).play();
+        $msg.show();
+    }
+
+    function listen_msg_event() {
+        $msg_confirm.on('click', function () {
+            hide_msg();
+        })
+    }
+
+    function notifiy(task, index) {
+        show_msg(task);
+    }
+
 
     function startRemind() {
         var current_time, task_time;
@@ -46,11 +68,12 @@
                 if ((!task_list[i] || !task_list[i].date || task_list[i].notified == true))
                     continue;
                 current_time = (new Date()).getTime();
-                console.log("task_time-current_time:", task_time, current_time);
+                // console.log("task_time-current_time:", task_time, current_time);
                 task_time = (new Date(task_list[i].date)).getTime();
                 if (current_time - task_time >= 1) {
                     console.log(task_list[i].notified);
-                    notifiy(task_list[i], i);
+                    updateTask(i, {'notified': true});
+                    notifiy(task_list[i].content, i);
                 }
             }
         }, 500);
@@ -59,6 +82,7 @@
 
 
     function init() {
+        listen_msg_event();
         task_list = store.get('task_list') || [];
         if (task_list.length > 0) {
             renderTaskList()
@@ -121,6 +145,8 @@
             // console.log(task_desc,task_date);
             task.desc = task_desc;
             task.date = task_date;
+            if ((new Date(task.date)).getTime() - (new Date()).getTime() >= 1)
+                task.notified = false;
             task_list[index] = task;
             task.content = content;
             store.set('task_list', task_list);

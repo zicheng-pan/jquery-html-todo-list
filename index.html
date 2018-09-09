@@ -6,11 +6,15 @@
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
+<div class="msg">
+    <span class="msg-content"></span>
+    <span class="anchor confirmed">known</span>
+</div>
 <div class="container">
     <h1>TODO list</h1>
     <!--add task-->
     <form class="add_task">
-        <input name="content" type="text"  placeholder="e.g.I wanna do ....">
+        <input name="content" type="text" placeholder="e.g.I wanna do ....">
         <button type="submit">submit</button>
     </form>
     <!--add task end-->
@@ -29,11 +33,11 @@
 
     <!--task list end-->
 </div>
-
-
-</body>
+<video class="alerter" src="alert.mp3"></video>
 <script src="./lib/jquery-3.3.1.min.js"></script>
 <script src="./lib/jquery.datetimepicker.js"></script>
 <script src="./lib/store.min.js"></script>
 <script src="./js/main.js"></script>
+</body>
 </html>
+
